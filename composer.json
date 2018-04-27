@@ -1,0 +1,19 @@
+{
+    "name": "weglot/weglot-laravel",
+    "description": "Translate your Laravel website easily.",
+    "type": "laravel-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baptiste Leduc",
+            "email": "baptiste@weglot.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Weglot\\Translate\\": "src/"
+        }
+    }
+}
