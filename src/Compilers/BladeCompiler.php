@@ -2,6 +2,7 @@
 
 namespace Weglot\Translate\Compilers;
 
+use Illuminate\Support\Facades\Request;
 use Illuminate\View\Compilers\BladeCompiler as LaravelBladeCompiler;
 use Illuminate\View\Compilers\CompilerInterface;
 use Weglot\Client\Client;
@@ -34,8 +35,13 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         $client = new Client($config['api_key']);
         $configProvider = new ServerConfigProvider();
 
-        $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
-        return $parser->translate($contents, $config['original_language'], 'de');
+        $locale = $this->currentLocale();
+        if($locale !== $config['original_language']) {
+            $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
+            $contents = $parser->translate($contents, $config['original_language'], $locale);
+        }
+
+        return $contents;
     }
 
     /**
@@ -46,7 +52,19 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
      */
     public function getCompiledPath($path)
     {
-        $localizedPath = 'de|' . $path;
-        return $this->cachePath.'/'.sha1($localizedPath).'.php';
+        $localizedPath = $this->currentLocale() . '|' . $path;
+        return $this->cachePath . '/' . sha1($localizedPath) . '.php';
+    }
+
+    /**
+     * Check current locale, based on URI segments
+     * @return string
+     */
+    protected function currentLocale() {
+        $segment = Request::segment(1);
+        if(in_array($segment, config('weglot-translate.destination_languages'))) {
+            return $segment;
+        }
+        return config('weglot-translate.original_language');
     }
 }

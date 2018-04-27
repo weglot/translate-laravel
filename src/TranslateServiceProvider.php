@@ -2,6 +2,7 @@
 
 namespace Weglot\Translate;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Engines\CompilerEngine;
 use Weglot\Translate\Compilers\BladeCompiler;
@@ -26,6 +27,22 @@ class TranslateServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/config.php', 'weglot-translate'
         );
+
+        $this->router();
+    }
+
+    /**
+     *
+     */
+    protected function router()
+    {
+        $destinationLanguages = config('weglot-translate.destination_languages');
+        foreach($destinationLanguages as $destination) {
+            Route::middleware('web')
+                ->namespace(config('weglot-translate.laravel.controller_namespace'))
+                ->prefix($destination)
+                ->group(base_path('routes/web.php'));
+        }
     }
 
     /**

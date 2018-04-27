@@ -7,5 +7,9 @@ return [
         'fr'
     ],
     'exclude_blocks' => [],
-    'cache' => false
+    'cache' => false,
+
+    'laravel' => [
+        'controller_namespace' => 'App\Http\Controllers'
+    ]
 ];
