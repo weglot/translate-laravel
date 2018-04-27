@@ -35,6 +35,18 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         $configProvider = new ServerConfigProvider();
 
         $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
-        return $parser->translate($contents, 'en', 'fr');
+        return $parser->translate($contents, 'en', 'de');
+    }
+
+    /**
+     * Get the path to the compiled version of a view.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function getCompiledPath($path)
+    {
+        $localizedPath = 'de|' . $path;
+        return $this->cachePath.'/'.sha1($localizedPath).'.php';
     }
 }
