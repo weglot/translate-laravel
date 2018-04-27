@@ -35,7 +35,7 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         $configProvider = new ServerConfigProvider();
 
         $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
-        return $parser->translate($contents, 'en', 'de');
+        return $parser->translate($contents, $config['original_language'], 'de');
     }
 
     /**
