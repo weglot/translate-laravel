@@ -19,10 +19,13 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // publish custom configuration
+        // publish & use custom configuration
         $this->publishes([
             __DIR__ . '/config.php' => config_path('weglot-translate.php'),
         ]);
+        $this->mergeConfigFrom(
+            __DIR__ . '/config.php', 'weglot-translate'
+        );
     }
 
     /**
@@ -32,10 +35,6 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // using custom configuration
-        $this->mergeConfigFrom(
-            __DIR__ . '/config.php', 'weglot-translate'
-        );
 
         // adding our custom blade compiler class to view service
         $app = $this->app;
