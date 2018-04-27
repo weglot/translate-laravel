@@ -4,13 +4,13 @@ namespace Weglot\Translate;
 
 use Weglot\Translate\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\ViewServiceProvider;
+use Illuminate\View\ViewServiceProvider as LaravelViewServiceProvider;
 
 /**
- * Class TranslateServiceProvider
+ * Class ViewServiceProvider
  * @package Weglot\Translate
  */
-class TranslatedViewServiceProvider extends ViewServiceProvider
+class ViewServiceProvider extends LaravelViewServiceProvider
 {
     /**
      * Register the Blade engine implementation.
