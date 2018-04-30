@@ -1,5 +1,8 @@
 <?php
 
+use Weglot\Client\Client;
+use Weglot\Client\Endpoint\Languages;
+use Weglot\Client\Api\LanguageEntry;
 use Illuminate\Support\Facades\Request;
 
 if (! function_exists('currentLocale')) {
@@ -17,8 +20,12 @@ if (! function_exists('currentLocale')) {
     }
 }
 
-if (! function_exists('weglot_hreflang_render')) {
-    function weglot_hreflang_render()
+if (!function_exists('currentRequestLocalizedUrls')) {
+    /**
+     * Returns array with all possible URL for current Request
+     * @return array
+     */
+    function currentRequestLocalizedUrls()
     {
         // init
         $route = Request::route();
@@ -44,11 +51,50 @@ if (! function_exists('weglot_hreflang_render')) {
 
         // creating urls
         $urls = [];
-        $urls[] = $baseUrl;
+        $urls[$config['original_language']] = $baseUrl;
         foreach ($config['destination_languages'] as $language) {
-            $urls[] = '/' . $language . $baseUrl;
+            $urls[$language] = '/' . $language . $baseUrl;
         }
 
-        return \view('weglot-translate::hreflangs', ['urls' => $urls]);
+        return $urls;
+    }
+}
+
+if (! function_exists('weglot_language')) {
+    function weglot_language($iso639, $getEnglish = true)
+    {
+        $client = new Client(config('weglot-translate.api_key'));
+        $translate = new Languages($client);
+        $languageCollection = $translate->handle();
+
+        $language = $languageCollection->getCode($iso639);
+        if (!$language instanceof LanguageEntry) {
+            return '';
+        }
+
+        if ($getEnglish) {
+            return $language->getEnglishName();
+        }
+        return $language->getLocalName();
+    }
+}
+
+if (! function_exists('weglot_hreflang_render')) {
+    function weglot_hreflang_render()
+    {
+        return \view(
+            'weglot-translate::hreflangs',
+            ['urls' => currentRequestLocalizedUrls()]
+        );
+    }
+}
+
+if (! function_exists('weglot_translate_render')) {
+    function weglot_translate_render($index)
+    {
+        return \view(
+            'weglot-translate::language-button-' . $index,
+            ['urls' => currentRequestLocalizedUrls()]
+        );
     }
 }
