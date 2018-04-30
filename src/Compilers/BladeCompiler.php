@@ -8,6 +8,7 @@ use Illuminate\View\Compilers\CompilerInterface;
 use Weglot\Client\Client;
 use Weglot\Parser\ConfigProvider\ServerConfigProvider;
 use Weglot\Parser\Parser;
+use Weglot\Translate\Cache\LaravelCachePool;
 
 /**
  * Class BladeCompiler
@@ -34,6 +35,11 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
 
         $client = new Client($config['api_key']);
         $configProvider = new ServerConfigProvider();
+
+        if($config['cache']) {
+            $cachePool = new LaravelCachePool();
+            $client->setCacheItemPool($cachePool);
+        }
 
         $locale = $this->currentLocale();
         if($locale !== $config['original_language']) {
