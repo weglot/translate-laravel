@@ -24,7 +24,8 @@ class TranslateServiceProvider extends ServiceProvider
             __DIR__ . '/config.php' => config_path('weglot-translate.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__ . '/config.php', 'weglot-translate'
+            __DIR__ . '/config.php',
+            'weglot-translate'
         );
 
         $this->app->register(RouterServiceProvider::class);

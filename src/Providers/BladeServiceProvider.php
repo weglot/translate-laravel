@@ -4,6 +4,7 @@ namespace Weglot\Translate\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Engines\CompilerEngine;
+use Weglot\Client\Api\LanguageCollection;
 use Weglot\Translate\Compilers\BladeCompiler;
 
 /**
@@ -33,8 +34,7 @@ class BladeServiceProvider extends ServiceProvider
         $app = $this->app;
         $resolver = $app['view']->getEngineResolver();
 
-        $resolver->register('blade', function() use ($app)
-        {
+        $resolver->register('blade', function () use ($app) {
             $compiler = new BladeCompiler($app['files'], $app['config']['view.compiled']);
 
             return new CompilerEngine($compiler);
