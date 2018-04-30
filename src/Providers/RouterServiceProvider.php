@@ -19,7 +19,7 @@ class RouterServiceProvider extends ServiceProvider
     public function boot()
     {
         $destinationLanguages = config('weglot-translate.destination_languages');
-        foreach($destinationLanguages as $destination) {
+        foreach ($destinationLanguages as $destination) {
             Route::middleware('web')
                 ->namespace(config('weglot-translate.laravel.controller_namespace'))
                 ->prefix($destination)
