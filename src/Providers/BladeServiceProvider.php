@@ -2,9 +2,13 @@
 
 namespace Weglot\Translate\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Engines\CompilerEngine;
 use Weglot\Client\Api\LanguageCollection;
+use Weglot\Client\Api\LanguageEntry;
+use Weglot\Client\Client;
+use Weglot\Client\Endpoint\Languages;
 use Weglot\Translate\Compilers\BladeCompiler;
 
 /**
@@ -14,13 +18,27 @@ use Weglot\Translate\Compilers\BladeCompiler;
 class BladeServiceProvider extends ServiceProvider
 {
     /**
+     * @var LanguageCollection
+     */
+    protected $languageCollection = null;
+
+    /**
      * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-        //
+        $this->fetchLanguageCollection();
+
+        // language filter, used to get locale full name from ISO 639-1 code
+        Blade::directive('language', function ($locale) {
+            $language = $this->languageCollection->getCode($locale);
+            if (!$language instanceof LanguageEntry) {
+                return '';
+            }
+            return $language->getLocalName();
+        });
     }
 
     /**
@@ -39,5 +57,15 @@ class BladeServiceProvider extends ServiceProvider
 
             return new CompilerEngine($compiler);
         });
+    }
+
+    /**
+     * Fetching languages collection from Weglot API
+     */
+    protected function fetchLanguageCollection()
+    {
+        $client = new Client(config('weglot-translate.api_key'));
+        $translate = new Languages($client);
+        $this->languageCollection = $translate->handle();
     }
 }
