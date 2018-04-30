@@ -16,6 +16,9 @@
     "autoload": {
         "psr-4": {
             "Weglot\\Translate\\": "src/"
-        }
+        },
+        "files" : [
+            "src/helpers.php"
+        ]
     }
 }
