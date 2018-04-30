@@ -19,16 +19,23 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/weglot-translate')
+        ], 'views');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'weglot-translate');
+
         // publish & use custom configuration
         $this->publishes([
-            __DIR__ . '/config.php' => config_path('weglot-translate.php'),
-        ]);
+            __DIR__ . '/../resources/config/config.php' => config_path('weglot-translate.php')
+        ], 'config');
         $this->mergeConfigFrom(
-            __DIR__ . '/config.php',
+            __DIR__ . '/../resources/config/config.php',
             'weglot-translate'
         );
 
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(BladeServiceProvider::class);
     }
 
     /**
@@ -38,6 +45,6 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(BladeServiceProvider::class);
+        //
     }
 }
