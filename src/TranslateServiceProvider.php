@@ -2,10 +2,9 @@
 
 namespace Weglot\Translate;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Engines\CompilerEngine;
-use Weglot\Translate\Compilers\BladeCompiler;
+use Weglot\Translate\Providers\BladeServiceProvider;
+use Weglot\Translate\Providers\RouterServiceProvider;
 
 /**
  * Class TranslateServiceProvider
@@ -20,29 +19,20 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/weglot-translate')
+        ], 'views');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'weglot-translate');
+
         // publish & use custom configuration
         $this->publishes([
-            __DIR__ . '/config.php' => config_path('weglot-translate.php'),
-        ]);
+            __DIR__ . '/../resources/config/config.php' => config_path('weglot-translate.php')
+        ], 'config');
         $this->mergeConfigFrom(
-            __DIR__ . '/config.php', 'weglot-translate'
+            __DIR__ . '/../resources/config/config.php',
+            'weglot-translate'
         );
-
-        $this->router();
-    }
-
-    /**
-     * Creating routes for destination languages
-     */
-    protected function router()
-    {
-        $destinationLanguages = config('weglot-translate.destination_languages');
-        foreach($destinationLanguages as $destination) {
-            Route::middleware('web')
-                ->namespace(config('weglot-translate.laravel.controller_namespace'))
-                ->prefix($destination)
-                ->group(base_path('routes/web.php'));
-        }
     }
 
     /**
@@ -52,16 +42,6 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        // adding our custom blade compiler class to view service
-        $app = $this->app;
-        $resolver = $app['view']->getEngineResolver();
-
-        $resolver->register('blade', function() use ($app)
-        {
-            $compiler = new BladeCompiler($app['files'], $app['config']['view.compiled']);
-
-            return new CompilerEngine($compiler);
-        });
+        //
     }
 }
