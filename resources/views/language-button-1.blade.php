@@ -3,7 +3,7 @@
         @foreach ($urls as $lang => $url)
             <li class="weglot-{{ $lang }}">
                 <a href="{{ $url }}" class="weglot-{{ $lang }}">
-                    {{ weglot_language($lang) }}
+                    {{ weglotLanguage($lang, false) }}
                 </a>
             </li>
         @endforeach

@@ -5,12 +5,12 @@ use Weglot\Client\Endpoint\Languages;
 use Weglot\Client\Api\LanguageEntry;
 use Illuminate\Support\Facades\Request;
 
-if (! function_exists('currentLocale')) {
+if (! function_exists('weglotCurrentLocale')) {
     /**
      * Check current locale, based on URI segments
      * @return string
      */
-    function currentLocale()
+    function weglotCurrentLocale()
     {
         $segment = Request::segment(1);
         if (in_array($segment, config('weglot-translate.destination_languages'))) {
@@ -20,16 +20,16 @@ if (! function_exists('currentLocale')) {
     }
 }
 
-if (!function_exists('currentRequestLocalizedUrls')) {
+if (!function_exists('weglotCurrentRequestLocalizedUrls')) {
     /**
      * Returns array with all possible URL for current Request
      * @return array
      */
-    function currentRequestLocalizedUrls()
+    function weglotCurrentRequestLocalizedUrls()
     {
         // init
         $route = Request::route();
-        $locale = currentLocale();
+        $locale = weglotCurrentLocale();
         $config = config('weglot-translate');
 
         // get current uri
@@ -60,8 +60,8 @@ if (!function_exists('currentRequestLocalizedUrls')) {
     }
 }
 
-if (! function_exists('weglot_language')) {
-    function weglot_language($iso639, $getEnglish = true)
+if (! function_exists('weglotLanguage')) {
+    function weglotLanguage($iso639, $getEnglish = true)
     {
         $client = new Client(config('weglot-translate.api_key'));
         $translate = new Languages($client);
@@ -79,22 +79,22 @@ if (! function_exists('weglot_language')) {
     }
 }
 
-if (! function_exists('weglot_hreflang_render')) {
-    function weglot_hreflang_render()
+if (! function_exists('weglotHrefLangRender')) {
+    function weglotHrefLangRender()
     {
         return \view(
             'weglot-translate::hreflangs',
-            ['urls' => currentRequestLocalizedUrls()]
+            ['urls' => weglotCurrentRequestLocalizedUrls()]
         );
     }
 }
 
-if (! function_exists('weglot_translate_render')) {
-    function weglot_translate_render($index)
+if (! function_exists('weglotButtonRender')) {
+    function weglotButtonRender($index)
     {
         return \view(
             'weglot-translate::language-button-' . $index,
-            ['urls' => currentRequestLocalizedUrls()]
+            ['urls' => weglotCurrentRequestLocalizedUrls()]
         );
     }
 }
