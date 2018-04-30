@@ -32,7 +32,7 @@ class TranslateServiceProvider extends ServiceProvider
     }
 
     /**
-     *
+     * Creating routes for destination languages
      */
     protected function router()
     {
