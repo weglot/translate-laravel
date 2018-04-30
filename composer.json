@@ -8,8 +8,16 @@
             "name": "Baptiste Leduc",
             "email": "baptiste@weglot.com",
             "role": "Developer"
+        },
+        {
+            "name": "Thomas Deneulin",
+            "email": "thomas@weglot.com",
+            "role": "Review"
         }
     ],
+    "support": {
+        "email": "support@weglot.com"
+    },
     "require": {
         "weglot/weglot-php": "^0.2.0"
     },
