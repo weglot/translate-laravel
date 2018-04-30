@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Cache;
  * Class LaravelCachePool
  * @package Weglot\Translate\Cache
  */
-class LaravelCachePool extends AbstractCachePool implements HierarchicalPoolInterface {
+class LaravelCachePool extends AbstractCachePool implements HierarchicalPoolInterface
+{
     use HierarchicalCachePoolTrait;
 
     /**
@@ -106,7 +107,7 @@ class LaravelCachePool extends AbstractCachePool implements HierarchicalPoolInte
      */
     protected function getList($name)
     {
-        if(!$this->repository->has($name)) {
+        if (!$this->repository->has($name)) {
             $this->repository->put($name, serialize([]));
         }
 
