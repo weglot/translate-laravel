@@ -51,7 +51,7 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
      */
     public function getCompiledPath($path)
     {
-        $localizedPath = currentLocale() . '|' . $path;
+        $localizedPath = sprintf('%s|%s', currentLocale(), $path);
         return $this->cachePath . '/' . sha1($localizedPath) . '.php';
     }
 }
