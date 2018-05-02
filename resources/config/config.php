@@ -10,6 +10,7 @@ return [
     'cache' => false,
 
     'laravel' => [
-        'controller_namespace' => 'App\Http\Controllers'
+        'controller_namespace' => 'App\Http\Controllers',
+        'routes_web' => 'routes/web.php'
     ]
 ];

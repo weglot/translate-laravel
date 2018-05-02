@@ -23,7 +23,7 @@ class RouterServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace(config('weglot-translate.laravel.controller_namespace'))
                 ->prefix($destination)
-                ->group(base_path('routes/web.php'));
+                ->group(base_path(config('weglot-translate.laravel.routes_web')));
         }
     }
 
