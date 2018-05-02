@@ -61,6 +61,12 @@ if (!function_exists('weglotCurrentRequestLocalizedUrls')) {
 }
 
 if (! function_exists('weglotLanguage')) {
+    /**
+     * Used to get language name from ISO 639-1 code
+     * @param string $iso639
+     * @param bool $getEnglish
+     * @return string
+     */
     function weglotLanguage($iso639, $getEnglish = true)
     {
         $client = new Client(config('weglot-translate.api_key'));
@@ -80,6 +86,10 @@ if (! function_exists('weglotLanguage')) {
 }
 
 if (! function_exists('weglotHrefLangRender')) {
+    /**
+     * Render hreflang links for SEO
+     * @return \Illuminate\View\View
+     */
     function weglotHrefLangRender()
     {
         return \view(
@@ -90,6 +100,11 @@ if (! function_exists('weglotHrefLangRender')) {
 }
 
 if (! function_exists('weglotButtonRender')) {
+    /**
+     * Render simple templates to switch between languages
+     * @param int $index
+     * @return \Illuminate\View\View
+     */
     function weglotButtonRender($index)
     {
         return \view(
