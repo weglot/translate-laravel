@@ -8,14 +8,27 @@
             "name": "Baptiste Leduc",
             "email": "baptiste@weglot.com",
             "role": "Developer"
+        },
+        {
+            "name": "Thomas Deneulin",
+            "email": "thomas@weglot.com",
+            "role": "Review"
         }
     ],
+    "support": {
+        "email": "support@weglot.com"
+    },
     "require": {
-        "weglot/weglot-php": "^0.2.0"
+        "weglot/weglot-php": "^0.2.0",
+        "cache/adapter-common": "^1.0",
+        "cache/hierarchical-cache": "^1.0"
     },
     "autoload": {
         "psr-4": {
             "Weglot\\Translate\\": "src/"
-        }
+        },
+        "files" : [
+            "src/helpers.php"
+        ]
     }
 }
