@@ -33,6 +33,9 @@ class TranslateServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/config/config.php',
             'weglot-translate'
         );
+
+        $this->app->register(BladeServiceProvider::class);
+        $this->app->register(RouterServiceProvider::class);
     }
 
     /**
