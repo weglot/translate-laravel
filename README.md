@@ -5,6 +5,7 @@
 
 <!-- tags -->
 [![Latest Stable Version](https://poser.pugx.org/weglot/weglot-laravel/v/stable)](https://packagist.org/packages/weglot/weglot-laravel)
+[![Maintainability](https://api.codeclimate.com/v1/badges/574432a2fcb67231a109/maintainability)](https://codeclimate.com/github/weglot/weglot-laravel/maintainability)
 [![License](https://poser.pugx.org/weglot/weglot-laravel/license)](https://packagist.org/packages/weglot/weglot-laravel)
 
 ## Overview
