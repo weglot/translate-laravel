@@ -8,6 +8,7 @@ use Weglot\Client\Client;
 use Weglot\Parser\ConfigProvider\ServerConfigProvider;
 use Weglot\Parser\Parser;
 use Weglot\Translate\Cache\LaravelCachePool;
+use Weglot\Translate\Compilers\Concerns\CompilesTranslations;
 
 /**
  * Class BladeCompiler
@@ -15,6 +16,8 @@ use Weglot\Translate\Cache\LaravelCachePool;
  */
 class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
 {
+    use CompilesTranslations;
+
     /**
      * Compile the given Blade template contents.
      *
