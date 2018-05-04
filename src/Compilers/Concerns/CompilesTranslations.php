@@ -18,11 +18,8 @@ trait CompilesTranslations
             return "<?php \$__env->startTranslation{$expression}; ?>";
         }
 
-        ob_start();
-        eval('echo app("translator")->getFromJson' .$expression. ';');
-        $translated = ob_get_clean();
-
-        return $translated;
+        $expression = preg_replace('#[\'\"]?[\(\)][\'\"]?#i', '', $expression);
+        return app('translator')->getFromJson($expression);
     }
 
     /**
