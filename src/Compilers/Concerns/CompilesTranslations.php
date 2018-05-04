@@ -35,6 +35,7 @@ trait CompilesTranslations
     /**
      * Compile the choice statements into valid PHP.
      *
+     * @TODO Remove this ugly eval
      * @param  string  $expression
      * @return string
      */
