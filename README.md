@@ -125,7 +125,9 @@ Two layouts exists:
 
 ## Examples
 
-// TODO
+You'll find a short README with details about example on each repository:
+
+- https://github.com/weglot/weglot-laravel-example-l5
 
 ## About
 `weglot-laravel` is guided and supported by the Weglot Developer Team.
