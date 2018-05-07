@@ -9,6 +9,7 @@ use Weglot\Parser\ConfigProvider\ServerConfigProvider;
 use Weglot\Parser\Parser;
 use Weglot\Translate\Cache\LaravelCachePool;
 use Weglot\Translate\Compilers\Concerns\CompilesTranslations;
+use Weglot\Translate\TranslateServiceProvider;
 
 /**
  * Class BladeCompiler
@@ -37,6 +38,9 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
 
         $client = new Client($config['api_key']);
         $configProvider = new ServerConfigProvider();
+
+        // custom user-agent
+        $client->getHttpClient()->addUserAgentInfo('laravel', TranslateServiceProvider::VERSION);
 
         if ($config['cache']) {
             $cachePool = new LaravelCachePool();

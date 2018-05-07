@@ -13,6 +13,13 @@ use Weglot\Translate\Providers\RouterServiceProvider;
 class TranslateServiceProvider extends ServiceProvider
 {
     /**
+     * Library version
+     *
+     * @var string
+     */
+    const VERSION = '0.1.2';
+
+    /**
      * Bootstrap services.
      *
      * @return void
