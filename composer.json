@@ -2,6 +2,7 @@
     "name": "weglot/weglot-laravel",
     "description": "Translate your Laravel website easily.",
     "type": "laravel-package",
+    "keywords": ["package", "laravel", "translation", "weglot"],
     "license": "MIT",
     "authors": [
         {
