@@ -34,6 +34,8 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
     public function compileString($value)
     {
         $contents = parent::compileString($value);
+        $contents = $this->cleanPhpLangTags($contents);
+
         $config = config('weglot-translate');
 
         $client = new Client($config['api_key']);
