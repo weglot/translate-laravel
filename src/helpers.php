@@ -3,62 +3,8 @@
 use Weglot\Client\Client;
 use Weglot\Client\Endpoint\Languages;
 use Weglot\Client\Api\LanguageEntry;
+use Weglot\Util\Url;
 use Illuminate\Support\Facades\Request;
-
-if (! function_exists('weglotCurrentLocale')) {
-    /**
-     * Check current locale, based on URI segments
-     * @return string
-     */
-    function weglotCurrentLocale()
-    {
-        $segment = Request::segment(1);
-        if (in_array($segment, config('weglot-translate.destination_languages'))) {
-            return $segment;
-        }
-        return config('weglot-translate.original_language');
-    }
-}
-
-if (!function_exists('weglotCurrentRequestLocalizedUrls')) {
-    /**
-     * Returns array with all possible URL for current Request
-     * @return array
-     */
-    function weglotCurrentRequestLocalizedUrls()
-    {
-        // init
-        $route = Request::route();
-        $locale = weglotCurrentLocale();
-        $config = config('weglot-translate');
-
-        // get current uri
-        $baseUrl = $route->uri();
-        if ($baseUrl[0] !== '/') {
-            $baseUrl = '/' .$baseUrl;
-        }
-
-        // build base uri
-        if ($locale !== $config['original_language']) {
-            $languages = implode('|', $config['destination_languages']);
-            $baseUrl = preg_replace('#\/?(' .$languages. ')#i', '', $baseUrl);
-
-            // if we go back at root
-            if ($baseUrl === '') {
-                $baseUrl = '/';
-            }
-        }
-
-        // creating urls
-        $urls = [];
-        $urls[$config['original_language']] = $baseUrl;
-        foreach ($config['destination_languages'] as $language) {
-            $urls[$language] = '/' . $language . $baseUrl;
-        }
-
-        return $urls;
-    }
-}
 
 if (! function_exists('weglotLanguage')) {
     /**
@@ -88,14 +34,12 @@ if (! function_exists('weglotLanguage')) {
 if (! function_exists('weglotHrefLangRender')) {
     /**
      * Render hreflang links for SEO
-     * @return \Illuminate\View\View
+     * @return string
      */
     function weglotHrefLangRender()
     {
-        return \view(
-            'weglot-translate::hreflangs',
-            ['urls' => weglotCurrentRequestLocalizedUrls()]
-        );
+        $url = weglotCurrentUrlInstance();
+        return $url->generateHrefLangsTags();
     }
 }
 
@@ -107,9 +51,26 @@ if (! function_exists('weglotButtonRender')) {
      */
     function weglotButtonRender($index)
     {
+        $url = weglotCurrentUrlInstance();
         return \view(
             'weglot-translate::language-button-' . $index,
-            ['urls' => weglotCurrentRequestLocalizedUrls()]
+            ['urls' => $url->currentRequestAllUrls()]
+        );
+    }
+}
+
+if (! function_exists('weglotCurrentUrlInstance')) {
+    /**
+     * Returns Url instance for current URL
+     * @return Url
+     */
+    function weglotCurrentUrlInstance()
+    {
+        $url = Request::fullUrl();
+        return new Url(
+            $url,
+            config('weglot-translate.original_language'),
+            config('weglot-translate.destination_languages')
         );
     }
 }
