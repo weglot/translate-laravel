@@ -20,7 +20,7 @@
         "email": "support@weglot.com"
     },
     "require": {
-        "weglot/weglot-php": "^0.3",
+        "weglot/weglot-php": "^0.4",
         "cache/adapter-common": "^1.0",
         "cache/hierarchical-cache": "^1.0"
     },
