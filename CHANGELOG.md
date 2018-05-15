@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.2.0] - 2018-05-07
+## [0.2.0] - 2018-05-15
 ### Added
 - Custom user-agent injection
 - Method to find & parse `__()` & `trans()` PHP tags
