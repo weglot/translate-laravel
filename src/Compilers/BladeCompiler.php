@@ -49,7 +49,7 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
             $client->setCacheItemPool($cachePool);
         }
 
-        $locale = weglotCurrentLocale();
+        $locale = $this->currentLocale();
         if ($locale !== $config['original_language']) {
             $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
             $contents = $parser->translate($contents, $config['original_language'], $locale);
@@ -66,7 +66,12 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
      */
     public function getCompiledPath($path)
     {
-        $localizedPath = sprintf('%s|%s', weglotCurrentLocale(), $path);
+        $localizedPath = sprintf('%s|%s', $this->currentLocale(), $path);
         return $this->cachePath . '/' . sha1($localizedPath) . '.php';
+    }
+
+    private function currentLocale()
+    {
+        return weglotCurrentUrlInstance()->detectCurrentLanguage();
     }
 }
