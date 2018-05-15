@@ -5,6 +5,26 @@ namespace Weglot\Translate\Compilers\Concerns;
 trait CompilesTranslations
 {
     /**
+     * Clean compiled PHP tags into raw translations
+     *
+     * @param string $contents
+     * @return string
+     */
+    protected function cleanPhpLangTags($contents)
+    {
+        $matches = [];
+        $regex = "(?<php><\?php\secho\se\((?<func>__|trans)\(\'(?<key>.*?)\'\)\);\s\?>)";
+        if (preg_match_all('#' .$regex. '#i', $contents, $matches) && count($matches) > 0) {
+            foreach ($matches['php'] as $index => $langTag) {
+                $translation = app('translator')->getFromJson($matches['key'][$index]);
+                $contents = str_replace($langTag, $translation, $contents);
+            }
+        }
+
+        return $contents;
+    }
+
+    /**
      * Compile the lang statements into valid PHP.
      *
      * @param  string  $expression
