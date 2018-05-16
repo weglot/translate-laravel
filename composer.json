@@ -1,5 +1,5 @@
 {
-    "name": "weglot/weglot-laravel",
+    "name": "weglot/translate-laravel",
     "description": "Translate your Laravel website easily.",
     "type": "laravel-package",
     "keywords": ["package", "laravel", "translation", "weglot"],

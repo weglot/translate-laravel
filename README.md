@@ -5,9 +5,9 @@
 
 <!-- tags -->
 [![WeglotSlack](https://weglot-community.now.sh/badge.svg)](https://weglot-community.now.sh/)
-[![Latest Stable Version](https://poser.pugx.org/weglot/weglot-laravel/v/stable)](https://packagist.org/packages/weglot/weglot-laravel)
-[![Maintainability](https://api.codeclimate.com/v1/badges/574432a2fcb67231a109/maintainability)](https://codeclimate.com/github/weglot/weglot-laravel/maintainability)
-[![License](https://poser.pugx.org/weglot/weglot-laravel/license)](https://packagist.org/packages/weglot/weglot-laravel)
+[![Latest Stable Version](https://poser.pugx.org/weglot/translate-laravel/v/stable)](https://packagist.org/packages/weglot/translate-laravel)
+[![Maintainability](https://api.codeclimate.com/v1/badges/574432a2fcb67231a109/maintainability)](https://codeclimate.com/github/weglot/translate-laravel/maintainability)
+[![License](https://poser.pugx.org/weglot/translate-laravel/license)](https://packagist.org/packages/weglot/translate-laravel)
 
 ## Overview
 Seamless integration of Weglot into your Laravel project.
@@ -20,7 +20,7 @@ Seamless integration of Weglot into your Laravel project.
 You can install the library via [Composer](https://getcomposer.org/). Run the following command:
 
 ```bash
-composer require weglot/weglot-laravel
+composer require weglot/translate-laravel
 ```
 
 To use the library, use Composer's [autoload](https://getcomposer.org/doc/01-basic-usage.md#autoloading):
@@ -130,10 +130,10 @@ You'll find a short README with details about example on each repository:
 - https://github.com/weglot/weglot-laravel-example-l5
 
 ## About
-`weglot-laravel` is guided and supported by the Weglot Developer Team.
+`translate-laravel` is guided and supported by the Weglot Developer Team.
 
-`weglot-laravel` is maintained and funded by Weglot SAS.
-The names and logos for `weglot-laravel` are trademarks of Weglot SAS.
+`translate-laravel` is maintained and funded by Weglot SAS.
+The names and logos for `translate-laravel` are trademarks of Weglot SAS.
 
 ## License
 [The MIT License (MIT)](LICENSE.txt)
