@@ -1,6 +1,6 @@
 {
     "name": "weglot/translate-laravel",
-    "description": "Translate your Laravel website easily.",
+    "description": "Seamless integration of Weglot into your Laravel project",
     "type": "laravel-package",
     "keywords": ["package", "laravel", "translation", "weglot"],
     "license": "MIT",
@@ -17,7 +17,9 @@
         }
     ],
     "support": {
-        "email": "support@weglot.com"
+        "email": "support@weglot.com",
+        "source": "https://github.com/weglot/translate-laravel",
+        "docs": "https://developers.weglot.com/laravel"
     },
     "require": {
         "weglot/weglot-php": "^0.4",
