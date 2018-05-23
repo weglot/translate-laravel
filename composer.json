@@ -2,7 +2,6 @@
     "name": "weglot/translate-laravel",
     "description": "Seamless integration of Weglot into your Laravel project",
     "type": "laravel-package",
-    "keywords": ["package", "laravel", "translation", "weglot"],
     "license": "MIT",
     "authors": [
         {
@@ -21,6 +20,19 @@
         "source": "https://github.com/weglot/translate-laravel",
         "docs": "https://developers.weglot.com/laravel"
     },
+    "keywords": [
+        "php",
+        "weglot",
+        "weglot-integration",
+        "translate",
+        "translation",
+        "translator",
+        "localization",
+        "languages",
+        "i18n",
+        "laravel",
+        "laravel5"
+    ],
     "require": {
         "weglot/weglot-php": "^0.4",
         "cache/adapter-common": "^1.0",
