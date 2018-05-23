@@ -1,6 +1,7 @@
 {
     "name": "weglot/translate-laravel",
     "description": "Seamless integration of Weglot into your Laravel project",
+    "homepage": "https://weglot.com/",
     "type": "laravel-package",
     "license": "MIT",
     "authors": [
