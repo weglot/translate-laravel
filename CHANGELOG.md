@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Package Auto Discovery
+### Changed
+- Updating `composer.json`
 
 ## [0.2.1] - 2018-05-16
 ### Changed
