@@ -35,7 +35,9 @@ require_once __DIR__. '/vendor/autoload.php';
 
 #### Laravel 5
 
-Add Weglot package in the `config/app.php`:
+This package use auto-discovery, when you require it from composer, you should have nothing to do and Provider gonna be added automatically to your `config/app.php` providers list.
+
+If this doesn't work, you can add our provider to the `config/app.php`, as following:
 ```php
 return [
     // ...
