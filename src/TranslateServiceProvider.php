@@ -52,6 +52,6 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('weglot.cache', 'Weglot\\Translate\\Cache\\Cache');
     }
 }

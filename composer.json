@@ -37,8 +37,8 @@
     ],
     "require": {
         "weglot/weglot-php": "^0.4",
-        "cache/adapter-common": "^1.0",
-        "cache/hierarchical-cache": "^1.0"
+        "cache/illuminate-adapter": "^0.2.0",
+        "illuminate/filesystem": "^5.6"
     },
     "autoload": {
         "psr-4": {
