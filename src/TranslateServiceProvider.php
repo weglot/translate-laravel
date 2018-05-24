@@ -3,6 +3,7 @@
 namespace Weglot\Translate;
 
 use Illuminate\Support\ServiceProvider;
+use Weglot\Translate\Commands\CacheClearCommand;
 use Weglot\Translate\Providers\BladeServiceProvider;
 use Weglot\Translate\Providers\RouterServiceProvider;
 
@@ -43,6 +44,12 @@ class TranslateServiceProvider extends ServiceProvider
 
         $this->app->register(BladeServiceProvider::class);
         $this->app->register(RouterServiceProvider::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CacheClearCommand::class
+            ]);
+        }
     }
 
     /**

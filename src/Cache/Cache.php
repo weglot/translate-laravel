@@ -7,7 +7,6 @@ use Illuminate\Cache\FileStore;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Filesystem\Filesystem;
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\SimpleCache\CacheInterface;
 
 /**
  * Class Cache
