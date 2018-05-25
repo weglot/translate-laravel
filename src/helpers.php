@@ -70,7 +70,8 @@ if (! function_exists('weglotCurrentUrlInstance')) {
         return new Url(
             $url,
             config('weglot-translate.original_language'),
-            config('weglot-translate.destination_languages')
+            config('weglot-translate.destination_languages'),
+            config('weglot-translate.prefix_path')
         );
     }
 }
