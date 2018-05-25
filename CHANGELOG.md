@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Package Auto Discovery
 - Independant Cache managment (& Facade) with new command to clear it
+- Prefix path managment
 ### Changed
 - Updating `composer.json`
 

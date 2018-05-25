@@ -7,6 +7,7 @@ return [
         'fr'
     ],
     'exclude_blocks' => [],
+    'prefix_path' => '',
     'cache' => false,
 
     'laravel' => [
