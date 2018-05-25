@@ -42,7 +42,7 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         $configProvider = new ServerConfigProvider();
 
         // custom user-agent
-        $client->getHttpClient()->addUserAgentInfo('laravel', TranslateServiceProvider::VERSION);
+        $client->getHttpClient()->addUserAgentInfo('laravel', 'Laravel\\' . TranslateServiceProvider::VERSION);
 
         if ($config['cache']) {
             $client->setCacheItemPool(Cache::getItemCachePool());
