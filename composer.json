@@ -1,13 +1,14 @@
 {
     "name": "weglot/translate-laravel",
-    "description": "Translate your Laravel website easily.",
+    "description": "Seamless integration of Weglot into your Laravel project",
+    "homepage": "https://weglot.com/",
     "type": "laravel-package",
-    "keywords": ["package", "laravel", "translation", "weglot"],
     "license": "MIT",
     "authors": [
         {
             "name": "Baptiste Leduc",
             "email": "baptiste@weglot.com",
+            "homepage": "https://baptiste-leduc.now.sh/",
             "role": "Developer"
         },
         {
@@ -17,12 +18,27 @@
         }
     ],
     "support": {
-        "email": "support@weglot.com"
+        "email": "support@weglot.com",
+        "source": "https://github.com/weglot/translate-laravel",
+        "docs": "https://developers.weglot.com/laravel"
     },
+    "keywords": [
+        "php",
+        "weglot",
+        "weglot-integration",
+        "translate",
+        "translation",
+        "translator",
+        "localization",
+        "languages",
+        "i18n",
+        "laravel",
+        "laravel5"
+    ],
     "require": {
         "weglot/weglot-php": "^0.4",
-        "cache/adapter-common": "^1.0",
-        "cache/hierarchical-cache": "^1.0"
+        "cache/illuminate-adapter": "^0.2.0",
+        "illuminate/filesystem": "^5.6"
     },
     "autoload": {
         "psr-4": {
@@ -31,5 +47,12 @@
         "files" : [
             "src/helpers.php"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Weglot\\Translate\\TranslateServiceProvider"
+            ]
+        }
     }
 }

@@ -14,7 +14,7 @@ Seamless integration of Weglot into your Laravel project.
 
 ## Requirements
 - PHP version 5.5 and later
-- Weglot API Key, starting at [free level](https://dashboard.weglot.com/register)
+- Weglot API Key, starting at [free level](https://dashboard.weglot.com/register?origin=7)
 
 ## Installation
 You can install the library via [Composer](https://getcomposer.org/). Run the following command:
@@ -35,7 +35,9 @@ require_once __DIR__. '/vendor/autoload.php';
 
 #### Laravel 5
 
-Add Weglot package in the `config/app.php`:
+This package use auto-discovery, when you require it from composer, you should have nothing to do and Provider gonna be added automatically to your `config/app.php` providers list.
+
+If this doesn't work, you can add our provider to the `config/app.php`, as following:
 ```php
 return [
     // ...
@@ -67,6 +69,7 @@ return [
         'fr'
     ],
     'exclude_blocks' => ['.site-name'],
+    'prefix_path' => '',
     'cache' => false,
 
     'laravel' => [
@@ -77,9 +80,10 @@ return [
 ```
 
 This is an example of configuration, enter your own API key, your original language and destination languages that you want.
-- `api_key` : is your personal API key. You can get an API Key by signing up on [Weglot](https://weglot.com/).
+- `api_key` : is your personal API key. You can get an API Key by signing up on [Weglot](https://dashboard.weglot.com/register?origin=7).
 - `original_language` : original language is the language of your website before translation.
 - `destination_languages` : are the languages that you want your website to be translated into.
+- `prefix_path` : if your laravel installation is not on webroot (ie. something like that: `https://my.website.com/foo/` is your actual root) set it to specify the path to your laravel installation
 - `cache` : if you wanna use cache or not. It's not a required field and set as false by default. Look at [Caching part](#caching) for more details.
 - `laravel.controller_namespace` : Used internaly when rewriting routes, change it if your Laravel namespace isn't `App` or your controllers are moved.
 - `laravel.routes_web` : Used internaly when rewriting routes, refer to the file where you have all your web routes.
@@ -91,6 +95,11 @@ There is also a non-required parameters `exclude_blocks` where you can list all 
 We implemented usage of `Cache` Facade for our package.
 
 If you wanna use cache, just put the `cache` parameter to true in this package configuration. It will plug onto the Laravel cache behavior.
+
+If you wanna clear your translation cache, just use the `weglot:cache:clear` command as following:
+```bash
+$ php artisan weglot:cache:clear
+```
 
 ### Optional - Hreflang links
 

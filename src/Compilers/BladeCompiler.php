@@ -7,8 +7,8 @@ use Illuminate\View\Compilers\CompilerInterface;
 use Weglot\Client\Client;
 use Weglot\Parser\ConfigProvider\ServerConfigProvider;
 use Weglot\Parser\Parser;
-use Weglot\Translate\Cache\LaravelCachePool;
 use Weglot\Translate\Compilers\Concerns\CompilesTranslations;
+use Weglot\Translate\Facades\Cache;
 use Weglot\Translate\TranslateServiceProvider;
 
 /**
@@ -42,11 +42,10 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         $configProvider = new ServerConfigProvider();
 
         // custom user-agent
-        $client->getHttpClient()->addUserAgentInfo('laravel', TranslateServiceProvider::VERSION);
+        $client->getHttpClient()->addUserAgentInfo('laravel', 'Laravel\\' . TranslateServiceProvider::VERSION);
 
         if ($config['cache']) {
-            $cachePool = new LaravelCachePool();
-            $client->setCacheItemPool($cachePool);
+            $client->setCacheItemPool(Cache::getItemCachePool());
         }
 
         $locale = $this->currentLocale();
@@ -70,6 +69,9 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
         return $this->cachePath . '/' . sha1($localizedPath) . '.php';
     }
 
+    /**
+     * @return string
+     */
     private function currentLocale()
     {
         return weglotCurrentUrlInstance()->detectCurrentLanguage();

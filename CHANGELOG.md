@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.0] - 2018-05-16
+### Added
+- Package Auto Discovery
+- Independant Cache managment (& Facade) with new command to clear it
+- Prefix path managment
+### Changed
+- Updating `composer.json`
+
 ## [0.2.1] - 2018-05-16
 ### Changed
 - Composer package name
