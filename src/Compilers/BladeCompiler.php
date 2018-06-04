@@ -28,6 +28,7 @@ class BladeCompiler extends IlluminateBladeCompiler implements CompilerInterface
         $contents = $this->cleanPhpLangTags($contents);
 
         $config = config('weglot-translate');
+        $url = weglotCurrentUrlInstance();
 
         $client = new Client($config['api_key']);
         $configProvider = new ServerConfigProvider();
@@ -39,7 +40,7 @@ class BladeCompiler extends IlluminateBladeCompiler implements CompilerInterface
             $client->setCacheItemPool(Cache::getItemCachePool());
         }
 
-        $locale = weglotCurrentUrlInstance()->detectCurrentLanguage();
+        $locale = $url->isTranslable() ? $url->detectCurrentLanguage() : $config['original_language'];
         if ($locale !== $config['original_language']) {
             $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
             $contents = $parser->translate($contents, $config['original_language'], $locale);
