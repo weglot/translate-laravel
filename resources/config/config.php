@@ -7,6 +7,7 @@ return [
         'fr'
     ],
     'exclude_blocks' => [],
+    'exclude_urls' => [],
     'prefix_path' => '',
     'cache' => false,
 

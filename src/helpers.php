@@ -67,11 +67,11 @@ if (! function_exists('weglotCurrentUrlInstance')) {
     function weglotCurrentUrlInstance()
     {
         $url = Request::fullUrl();
-        return new Url(
+        return (new Url(
             $url,
             config('weglot-translate.original_language'),
             config('weglot-translate.destination_languages'),
             config('weglot-translate.prefix_path')
-        );
+        ))->setExcludedUrls(config('weglot-translate.exclude_urls'));
     }
 }

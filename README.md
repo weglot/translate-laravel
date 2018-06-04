@@ -69,6 +69,7 @@ return [
         'fr'
     ],
     'exclude_blocks' => ['.site-name'],
+    'exclude_urls' => ['\/admin\/.*'],
     'prefix_path' => '',
     'cache' => false,
 
@@ -88,7 +89,9 @@ This is an example of configuration, enter your own API key, your original langu
 - `laravel.controller_namespace` : Used internaly when rewriting routes, change it if your Laravel namespace isn't `App` or your controllers are moved.
 - `laravel.routes_web` : Used internaly when rewriting routes, refer to the file where you have all your web routes.
 
-There is also a non-required parameters `exclude_blocks` where you can list all blocks you don't want to be translated. On this example, you can see that all blocks with the `site-name` class won't be translated.
+There is also a non-required parameters:
+- `exclude_blocks` : where you can list all blocks you don't want to be translated. On this example, you can see that all blocks with the `site-name` class won't be translated.
+- `exclude_urls` : you can prevent urls path from being translated (such as an admin path in this example)
 
 ### Caching
 
