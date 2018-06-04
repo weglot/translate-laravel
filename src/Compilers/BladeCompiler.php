@@ -2,7 +2,7 @@
 
 namespace Weglot\Translate\Compilers;
 
-use Illuminate\View\Compilers\BladeCompiler as LaravelBladeCompiler;
+use Illuminate\View\Compilers\BladeCompiler as IlluminateBladeCompiler;
 use Illuminate\View\Compilers\CompilerInterface;
 use Weglot\Client\Client;
 use Weglot\Parser\ConfigProvider\ServerConfigProvider;
@@ -15,7 +15,7 @@ use Weglot\Translate\TranslateServiceProvider;
  * Class BladeCompiler
  * @package Weglot\Translate\Compilers
  */
-class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
+class BladeCompiler extends IlluminateBladeCompiler implements CompilerInterface
 {
     use CompilesTranslations;
 
