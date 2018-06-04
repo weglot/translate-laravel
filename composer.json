@@ -36,7 +36,7 @@
         "laravel5"
     ],
     "require": {
-        "weglot/weglot-php": "^0.4",
+        "weglot/weglot-php": "^0.5",
         "cache/illuminate-adapter": "^0.2.0",
         "illuminate/filesystem": "^5.4"
     },
