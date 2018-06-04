@@ -20,16 +20,7 @@ class BladeCompiler extends LaravelBladeCompiler implements CompilerInterface
     use CompilesTranslations;
 
     /**
-     * Compile the given Blade template contents.
-     *
-     * @param string $value
-     * @return string
-     * @throws \Psr\Cache\InvalidArgumentException
-     * @throws \Weglot\Client\Api\Exception\ApiError
-     * @throws \Weglot\Client\Api\Exception\InputAndOutputCountMatchException
-     * @throws \Weglot\Client\Api\Exception\InvalidWordTypeException
-     * @throws \Weglot\Client\Api\Exception\MissingRequiredParamException
-     * @throws \Weglot\Client\Api\Exception\MissingWordsOutputException
+     * {@inheritdoc}
      */
     public function compileString($value)
     {
