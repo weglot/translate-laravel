@@ -39,7 +39,7 @@ class BladeCompiler extends IlluminateBladeCompiler implements CompilerInterface
             $client->setCacheItemPool(Cache::getItemCachePool());
         }
 
-        $locale = $this->currentLocale();
+        $locale = weglotCurrentUrlInstance()->detectCurrentLanguage();
         if ($locale !== $config['original_language']) {
             $parser = new Parser($client, $configProvider, $config['exclude_blocks']);
             $contents = $parser->translate($contents, $config['original_language'], $locale);
@@ -56,15 +56,12 @@ class BladeCompiler extends IlluminateBladeCompiler implements CompilerInterface
      */
     public function getCompiledPath($path)
     {
-        $localizedPath = sprintf('%s|%s', $this->currentLocale(), $path);
-        return $this->cachePath . '/' . sha1($localizedPath) . '.php';
-    }
+        $url = weglotCurrentUrlInstance();
 
-    /**
-     * @return string
-     */
-    private function currentLocale()
-    {
-        return weglotCurrentUrlInstance()->detectCurrentLanguage();
+        if (!$url->isTranslable()) {
+            return parent::getCompiledPath($path);
+        }
+        $localizedPath = sprintf('%s|%s', $url->detectCurrentLanguage(), $path);
+        return $this->cachePath . '/' . sha1($localizedPath) . '.php';
     }
 }
