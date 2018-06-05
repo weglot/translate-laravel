@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Weglot\Translate\Commands\CacheClearCommand;
 use Weglot\Translate\Providers\BladeServiceProvider;
 use Weglot\Translate\Providers\RouterServiceProvider;
+use Weglot\Translate\Routing\UrlGenerator;
 
 /**
  * Class TranslateServiceProvider
@@ -42,9 +43,6 @@ class TranslateServiceProvider extends ServiceProvider
             'weglot-translate'
         );
 
-        $this->app->register(BladeServiceProvider::class);
-        $this->app->register(RouterServiceProvider::class);
-
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CacheClearCommand::class
@@ -59,6 +57,12 @@ class TranslateServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(BladeServiceProvider::class);
+        $this->app->register(RouterServiceProvider::class);
+
+        $routes = $this->app['router']->getRoutes();
+        $this->app->instance('url', new UrlGenerator($routes, $this->app->make('request')));
+
         $this->app->bind('weglot.cache', 'Weglot\\Translate\\Cache\\Cache');
     }
 }
