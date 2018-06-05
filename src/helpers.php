@@ -47,7 +47,8 @@ if (! function_exists('weglotButtonRender')) {
     /**
      * Render simple templates to switch between languages
      * @param int $index
-     * @return \Illuminate\View\View
+     * @return string
+     * @throws \Throwable
      */
     function weglotButtonRender($index)
     {
@@ -55,7 +56,7 @@ if (! function_exists('weglotButtonRender')) {
         return \view(
             'weglot-translate::language-button-' . $index,
             ['urls' => $url->currentRequestAllUrls()]
-        );
+        )->render();
     }
 }
 
