@@ -14,6 +14,7 @@ Seamless integration of Weglot into your Laravel project.
 
 ## Requirements
 - PHP version 5.5 and later
+- Laravel 5.*
 - Weglot API Key, starting at [free level](https://dashboard.weglot.com/register?origin=7)
 
 ## Installation
@@ -33,8 +34,6 @@ require_once __DIR__. '/vendor/autoload.php';
 
 ### Package Register
 
-#### Laravel 5
-
 This package use auto-discovery, when you require it from composer, you should have nothing to do and Provider gonna be added automatically to your `config/app.php` providers list.
 
 If this doesn't work, you can add our provider to the `config/app.php`, as following:
@@ -51,14 +50,19 @@ return [
 ];
 ```
 
-### Configuration
+### Quick configuration
 
 As usual for Laravel packages, you can publish configuration files by doing:
 ```bash
 $ php artisan vendor:publish --provider="Weglot\Translate\TranslateServiceProvider" --tag="config"
 ```
 
-You'll find the configuration file in `config/weglot-translate.php`:
+You'll find the configuration file in `config/weglot-translate.php` with default values.
+If you want to go deeper in [configuration](#configuration), I suggest you to consult the [corresponding part](#configuration) of this README.
+
+## Configuration
+
+Here is a full configuration file:
 ```php
 <?php
 
@@ -86,14 +90,44 @@ This is an example of configuration, enter your own API key, your original langu
 - `destination_languages` : are the languages that you want your website to be translated into.
 - `prefix_path` : if your laravel installation is not on webroot (ie. something like that: `https://my.website.com/foo/` is your actual root) set it to specify the path to your laravel installation
 - `cache` : if you wanna use cache or not. It's not a required field and set as false by default. Look at [Caching part](#caching) for more details.
-- `laravel.controller_namespace` : Used internaly when rewriting routes, change it if your Laravel namespace isn't `App` or your controllers are moved.
-- `laravel.routes_web` : Used internaly when rewriting routes, refer to the file where you have all your web routes.
 
 There is also a non-required parameters:
 - `exclude_blocks` : where you can list all blocks you don't want to be translated. On this example, you can see that all blocks with the `site-name` class won't be translated.
 - `exclude_urls` : you can prevent urls path from being translated (such as an admin path in this example)
 
-### Caching
+And some Laravel-related parameters:
+- `laravel.controller_namespace` : Used internaly when rewriting routes, change it if your Laravel namespace isn't `App` or your controllers are moved.
+- `laravel.routes_web` : Used internaly when rewriting routes, refer to the file where you have all your web routes.
+
+## Routing
+
+Since we are adding routes for each destination languages we need a strong way to manipulate urls.
+
+We choose to make that through named routes and `route()` helper.
+
+When you create a route, you have to give a name as following:
+```php
+Route::get('/', 'Controller@method')
+    ->name('my_route_name');
+```
+
+Then you can use it in your blade templates as following:
+```twig
+<a href="{{ route('my_route_name') }}">My link</a>
+```
+
+Like that, we will detect current language and adjust url if needed.
+
+### Forcing language
+
+You can force any language as following:
+```twig
+<a href="{{ route('my_route_name', ['_wg_lang' => 'es']) }}">My link</a>
+```
+
+Like that, it will force `es` language for this link !
+
+## Caching
 
 We implemented usage of `Cache` Facade for our package.
 
@@ -104,7 +138,63 @@ If you wanna clear your translation cache, just use the `weglot:cache:clear` com
 $ php artisan weglot:cache:clear
 ```
 
-### Optional - Hreflang links
+## Helper reference
+
+### weglotCurrentUrlInstance
+
+One of the core helper of this plugin it returns an instance of `Weglot\Util\Url` which is what manages:
+- Detect current language
+- What are translated urls based on current url
+- Is a given url translable or not (based on `excludedUrls` option)
+- Generate hreflinks
+
+Here is some usage examples:
+```php
+$url = weglotCurrentUrlInstance();
+
+// returns current language
+$lang = $url->detectCurrentLanguage();
+
+// returns all translated urls
+$urls = $url->currentRequestAllUrls();
+/**
+ * Will return an array like this:
+ * Array(
+ *   'en' => 'https://weglot.com/',
+ *   'fr' => 'https://weglot.com/fr',
+ *   'es' => 'https://weglot.com/es',
+ *   'de' => 'https://weglot.com/de'
+ * )
+ **/
+
+// returns a boolean to know if the current url is translable
+$translable = $url->isTranslable();
+
+// returns string containing DOM with hreflang tags
+$hreflangTags = $url->generateHrefLangsTags();
+/**
+ * Will return an array like this:
+ * <link rel="alternate" href="https://weglot.com" hreflang="en"/>
+ * <link rel="alternate" href="https://weglot.com/fr" hreflang="fr"/>
+ * <link rel="alternate" href="https://weglot.com/es" hreflang="es"/>
+ * <link rel="alternate" href="https://weglot.com/de" hreflang="de"/>
+ **/
+```
+
+### weglotButtonRender
+
+You can add a language button with the helper function: `weglotButtonRender`
+
+Two layouts exists:
+```blade
+<!-- first layout -->
+{{ weglotButtonRender(1) }}
+
+<!-- second layout -->
+{{ weglotButtonRender(2) }}
+```
+
+### weglotHrefLangRender
 
 Hreflang links are a way to describe your website and to tell webcrawlers (such as search engines) if this page is available in other languages.
 More details on Google post about hreflang: https://support.google.com/webmasters/answer/189077
@@ -121,19 +211,18 @@ Just put the function at the end of your `<head>` tag:
     </head>
 ```
 
-### Optional - Language button
+### weglotLanguage
 
-You can add a language button with the helper function: `weglotButtonRender`
+Simple helper to convert ISO 639-1 code to full language name. It can takes one boolean parameter that allow you to choose having english name or original language name.
 
-Two layouts exists:
-```blade
-<!-- first layout -->
-{{ weglotButtonRender(1) }}
+Here is a quick example:
+```php
+$name = weglotLanguage('bg');
+// $name will contains: "Bulgarian"
 
-<!-- second layout -->
-{{ weglotButtonRender(2) }}
+$name = weglotLanguage('bg', false);
+// $name will contains: "български"
 ```
-
 
 ## Examples
 
