@@ -194,6 +194,11 @@ Two layouts exists:
 {{ weglotButtonRender(2) }}
 ```
 
+If you want to overwrite theses templates you can publish them with the following artisan command:
+```bash
+$ php artisan vendor:publish --provider="Weglot\Translate\TranslateServiceProvider" --tag="views"
+```
+
 ### weglotHrefLangRender
 
 Hreflang links are a way to describe your website and to tell webcrawlers (such as search engines) if this page is available in other languages.
