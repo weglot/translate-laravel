@@ -3,8 +3,8 @@
 namespace Weglot\Translate\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Engines\CompilerEngine;
-use Weglot\Translate\Compilers\BladeCompiler;
+use Illuminate\View\Compilers\BladeCompiler;
+use Weglot\Translate\Compilers\CompilerEngine;
 
 /**
  * Class RouterServiceProvider
