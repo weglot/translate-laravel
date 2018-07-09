@@ -19,7 +19,7 @@ class TranslateServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '0.3.4';
+    const VERSION = '0.3.5';
 
     /**
      * Bootstrap services.

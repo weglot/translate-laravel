@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.5] - 2018-07-09
+### Changed
+- Updating `composer.json`
+
 ## [0.3.4] - 2018-06-21
 ### Fixed
 - Compiler: Due to template-related issues, we switched translation caching from Compiler generation to Compiler engine (on rendering)
