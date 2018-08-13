@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.6] - 2018-08-13
+### Changed
+- Fixing RouterServiceProvider foreach error
+
 ## [0.3.5] - 2018-07-09
 ### Changed
 - Updating `composer.json`

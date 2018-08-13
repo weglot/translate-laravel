@@ -19,12 +19,15 @@ class RouterServiceProvider extends ServiceProvider
     public function boot()
     {
         $destinationLanguages = config('weglot-translate.destination_languages');
-        foreach ($destinationLanguages as $destination) {
-            Route::middleware('web')
-                ->namespace(config('weglot-translate.laravel.controller_namespace'))
-                ->prefix($destination)
-                ->as($destination.".")
-                ->group(base_path(config('weglot-translate.laravel.routes_web')));
+
+        if (null !== $destinationLanguages && count($destinationLanguages) > 0) {
+            foreach ($destinationLanguages as $destination) {
+                Route::middleware('web')
+                    ->namespace(config('weglot-translate.laravel.controller_namespace'))
+                    ->prefix($destination)
+                    ->as($destination.".")
+                    ->group(base_path(config('weglot-translate.laravel.routes_web')));
+            }
         }
     }
 
