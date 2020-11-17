@@ -1,3 +1,11 @@
+# ⚠️ This package is deprecated ⚠️
+
+[Create a new project](https://dashboard.weglot.com/projects/create) and use
+the subdomain integration (Technology: Other) to translate your Laravel website.
+
+---
+
+
 <!-- logo -->
 <img src="https://cdn.weglot.com/logo/logo-hor.png" height="40" />
 
